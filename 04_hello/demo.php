@@ -1,7 +1,9 @@
 <?php
 // TODO: 変数: $ 記号を名前の前につけてデータを保存します
+$message = "Hello PHP!";
 // TODO: 文末: 命令の終わりには必ず ; (セミコロン) をつけます
 // TODO: PHPのバージョンを取得: phpversion()
+$version = phpversion();
 // TODO: 複数コメント
 ?>
 <!-- ここからHTMLレンダリング -->
