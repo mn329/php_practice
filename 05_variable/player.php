@@ -20,6 +20,12 @@ $last_login = null;
 $items = ["Sword", "Shield", "Potion"];
 // TODO: 変数 status : 連想配列 (キーと値のペアでステータスを格納)
 // 例: "hp" => 100, "mp" => 50, "job" => "戦士"
+// 通常では
+// status = {
+//   "hp" : 100,
+//   "mp" : 50,
+//   "job" : "戦士"
+// }
 $status = ["hp" => 100, "mp" => 50, "job" => "戦士"];
 
 ?>
@@ -92,6 +98,12 @@ $status = ["hp" => 100, "mp" => 50, "job" => "戦士"];
                         <?= $item ?>
                     </span>
                 <?php endforeach; ?>
+                <!-- ng例
+                 foreach ($items as $item) {
+                    echo "[{$i}] {$item}";
+                    echo "<br>";
+                 }
+                 -->
             </div>
         </section>
 
