@@ -3,10 +3,20 @@
 $targetDate = isset($_GET['date']) ? new DateTime($_GET['date']) : new DateTime();
 
 // TODO: 曜日インデックス（0:日 〜 6:土）
+// format('w') は曜日を0~6の数字(文字列)で返すため、(int) で数値にそろえる
 $weekIndex = (int) $targetDate->format('w');
 
 // 日本語の曜日名を取得 (IntlDateFormatterを使用)
-$formatter = new IntlDateFormatter('ja_JP', IntlDateFormatter::NONE, IntlDateFormatter::NONE, null, null, 'E');
+// IntlDateFormatter は日付をフォーマットするためのクラス
+$formatter = new IntlDateFormatter(
+    'ja_JP',
+    IntlDateFormatter::NONE, // タイムゾーンを使用しない
+    IntlDateFormatter::NONE, // タイムゾーンを使用しない
+    IntlDateFormatter::NONE, // タイムゾーンを使用しない
+    null, // タイムゾーンを使用しない
+    null, // タイムゾーンを使用しない
+    'E'
+); // 曜日を取得
 // TODO: 曜日フォーマット
 $weekDay = $formatter->format($targetDate);
 
