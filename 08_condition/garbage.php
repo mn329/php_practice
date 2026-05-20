@@ -12,11 +12,10 @@ $formatter = new IntlDateFormatter(
     'ja_JP',
     IntlDateFormatter::NONE, // タイムゾーンを使用しない
     IntlDateFormatter::NONE, // タイムゾーンを使用しない
-    IntlDateFormatter::NONE, // タイムゾーンを使用しない
     null, // タイムゾーンを使用しない
     null, // タイムゾーンを使用しない
-    'E'
-); // 曜日を取得
+    'E' // 曜日を取得
+);
 // TODO: 曜日フォーマット
 $weekDay = $formatter->format($targetDate);
 
