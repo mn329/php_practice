@@ -9,22 +9,22 @@
 
 // TODO: $_GET: URLパラメータの取得 (?name=Taro などの値)
 // URLパラメータから 'name' を取得し、なければ 'ゲスト' をデフォルト値
-$name = '';
+$name = $_GET['name'] ?? 'ゲスト';
 
 // TODO: $_POST: フォームから送信されたデータの取得
 // フォームから送信された 'user_name' と 'message' を取得し、なければ空文字をデフォルト値
-$postedMessage =  '';
-$postedName = '';
+$postedMessage =  $_POST['message'] ?? '';
+$postedName = $_POST['user_name'] ?? '';
 
 // TODO: $_SERVER: サーバーや実行環境の情報
 // サーバー名:$_SERVER['SERVER_NAME']
-$serverName = "";
+$serverName = $_SERVER['SERVER_NAME'] ?? '';
 // ユーザーエージェント: $_SERVER['HTTP_USER_AGENT']
-$userAgent = "";
+$userAgent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 // リクエスト方法: $_SERVER['REQUEST_METHOD']
-$requestMethod = "";
+$requestMethod = $_SERVER['REQUEST_METHOD'] ?? '';
 // クライアントのIPアドレス: $_SERVER['REMOTE_ADDR']
-$remoteAddr = "";
+$remoteAddr = $_SERVER['REMOTE_ADDR'] ?? '';
 ?>
 
 <!DOCTYPE html>
