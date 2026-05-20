@@ -6,17 +6,17 @@
 
 // TODO: 型の変数
 // 文字列
-$v1 = null;
+$v1 = "100";
 // 整数
-$v2 = null;
+$v2 = 100;
 // 浮動小数点
-$v3 = null;
+$v3 = 100.0;
 // ブール
-$v4 = null;
+$v4 = true;
 // NULL
 $v5 = null;
 // Array
-$v6 = null;
+$v6 = ["Sword", "Shield", "Potion"];
 
 ?>
 <!DOCTYPE html>
