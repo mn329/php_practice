@@ -1,6 +1,6 @@
 <?php
 // データの読み込み
-require_once 'data/users.php';
+require_once __DIR__ . '/data/users.php';
 
 // URLパラメータからIDを取得
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -9,12 +9,12 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $user = null;
 
 // 1. foreach の場合
-// foreach ($users as $user) {
-//     if ($user['id'] === $id) {
-//         $user = $user;
-//         break;
-//     }
-// }
+foreach ($users as $user) {
+    if ($user['id'] === $id) {
+        $user = $user;
+        break;
+    }
+}
 
 // 2. array_search() の場合
 // $key = array_search($id, array_column($users, 'id'), true);
@@ -60,23 +60,31 @@ if (!$user) {
                 <!-- Avatar -->
                 <div class="relative -mt-16 mb-6">
                     <!-- TODO: アバター画像を表示 -->
-                    <img src="" alt="" class="w-32 h-32 rounded-3xl border-4 border-white shadow-lg object-cover bg-white">
+                    <img src="../images/users/<?= $user['avatar'] ?>" alt="<?= $user['avatar'] ?>" class="w-32 h-32 rounded-3xl border-4 border-white shadow-lg object-cover bg-white">
                 </div>
 
                 <!-- Profile Info -->
                 <div class="mb-8">
                     <!-- TODO: ユーザー名を表示 -->
-                    <h1 class="text-3xl font-black tracking-tight mb-1"></h1>
+                    <h1 class="text-3xl font-black tracking-tight mb-1">
+                        <?= $user['display_name'] ?>
+                    </h1>
                     <!-- TODO: アカウント名を @+アカウント名で表示 -->
-                    <p class="text-slate-400 font-bold text-sm uppercase tracking-widest"></p>
+                    <p class="text-slate-400 font-bold text-sm uppercase tracking-widest">
+                        @<?= $user['account_name'] ?>
+                    </p>
                 </div>
 
                 <!-- Roles & Tags -->
                 <div class="flex flex-wrap gap-2 mb-8">
                     <!-- TODO: ロールを表示 -->
-                    <span class="px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold ring-1 ring-indigo-100"></span>
+                    <span class="px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold ring-1 ring-indigo-100">
+                        <?= $user['role'] ?>
+                    </span>
                     <!-- TODO: IDを表示 -->
-                    <span class="px-4 py-1.5 bg-slate-50 text-slate-500 rounded-full text-xs font-bold ring-1 ring-slate-100">ID: </span>
+                    <span class="px-4 py-1.5 bg-slate-50 text-slate-500 rounded-full text-xs font-bold ring-1 ring-slate-100">
+                        ID: <?= $user['id'] ?>
+                    </span>
                 </div>
 
                 <!-- Bio Section -->
@@ -84,6 +92,9 @@ if (!$user) {
                     <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-4">自己紹介</h2>
                     <p class="text-slate-600 leading-relaxed font-medium">
                         <!-- TODO: 自己紹介を表示: nl2br() htmlspecialchars() を使用 -->
+                        <!-- nl2br() 改行を反映させる -->
+                        <!-- htmlspecialchars() エスケープ処理を行う -->
+                        <?= nl2br($user['bio']) ?>
                     </p>
                 </div>
 
@@ -98,7 +109,9 @@ if (!$user) {
                         <div class="overflow-hidden">
                             <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email</p>
                             <!-- TODO: emailを表示 -->
-                            <p class="text-sm font-bold text-slate-900 truncate"></p>
+                            <p class="text-sm font-bold text-slate-900 truncate">
+                                <?= $user['email'] ?>
+                            </p>
                         </div>
                     </div>
                 </div>
