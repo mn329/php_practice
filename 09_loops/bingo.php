@@ -9,23 +9,25 @@ $labels = ['B', 'I', 'N', 'G', 'O'];
 // TODO: 各列の番号の範囲を定義:  range()
 // 1 - 15, 16 - 30, 31 - 45, 46 - 60, 61 - 75
 $ranges = [
-    'B' => [],
-    'I' => [],
-    'N' => [],
-    'G' => [],
-    'O' => [],
+    'B' => range(1, 15),
+    'I' => range(16, 30),
+    'N' => range(31, 45),
+    'G' => range(46, 60),
+    'O' => range(61, 75),
 ];
 
 // 各列の番号を格納する配列
 $columns = [];
-// TODO: 各列の番号の範囲をループ: foreach($ranges as $label => $range)
+// TODO: 各列の番号の範囲をループ: foreach($ranges as $key => $range)
 // 各列の番号をシャッフル
-// shuffle($range);
-// 5つ選ぶ
-// $columns[$label] = array_slice($range, 0, 5);
-
-// 中央（N列の3番目）を FREE に
-$columns['N'][2] = 'FREE';
+foreach ($ranges as $key => $range) {
+    shuffle($range);
+    $columns[$key] = array_slice($range, 0, 5);
+    // 中央（N列の3番目）を FREE に
+    if ($key === 'N') {
+        $columns[$key][2] = 'FREE';
+    }
+}
 
 /**
  * 縦の列データを横の行データに変換 (5x5)
@@ -103,17 +105,18 @@ $colors = [
             <!-- Header Labels -->
             <div class="grid grid-cols-5 gap-2 mb-2">
                 <!-- TODO: コロン構文 foreach でラベルを繰り返し -->
+                <?php foreach ($labels as $label): ?>
                     <div class="<?= $colors[$label]['bg'] ?> rounded-2xl bingo-cell flex items-center justify-center text-2xl text-white font-black shadow-inner">
                         <?= $label ?>
                     </div>
+                <?php endforeach; ?>
             </div>
 
             <!-- Numbers Grid -->
             <div class="grid grid-cols-5 gap-2">
                 <!-- TODO: $rows で繰り返し -->
-                <?php foreach ([] as $row): ?>
-                    <!-- TODO: $row で繰り返し -->
-                    <?php foreach ([] as $value): ?>
+                <?php foreach ($rows as $row): ?>
+                    <?php foreach ($row as $value): ?>
                         <?php
                         $isFree = ($value === 'FREE');
                         ?>
@@ -128,6 +131,7 @@ $colors = [
                                     <span class="absolute bottom-1 text-[8px] font-black uppercase tracking-widest opacity-50">Free</span>
                                 <?php else: ?>
                                     <!-- TODO: $value を表示 -->
+                                    <?= $value ?>
                                 <?php endif; ?>
                             </div>
                         </div>
