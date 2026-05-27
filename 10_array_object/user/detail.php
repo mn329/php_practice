@@ -9,20 +9,22 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $user = null;
 
 // 1. foreach の場合
-foreach ($users as $user) {
-    if ($user['id'] === $id) {
-        $user = $user;
-        break;
-    }
-}
+// foreach ($users as $user) {
+//     if ($user['id'] === $id) {
+//         $user = $user;
+//         break;
+//     }
+// }
 
 // 2. array_search() の場合
 // $key = array_search($id, array_column($users, 'id'), true);
 // $user = $key !== false ? $users[$key] : null;
 
 // 3. array_filter() の場合
-// $user = array_filter($users, fn($user) => $user['id'] === $id);
-// $user = $user ? reset($user) : null;
+// array_filter() で id が一致するユーザーを検索
+$filteredUsers = array_filter($users, fn($user) => $user['id'] === $id);
+// reset() で最初の要素を取得。見つからない場合は null
+$user = $filteredUsers ? reset($filteredUsers) : null;
 
 // ユーザーが見つからない場合は一覧に戻すかエラーを表示
 if (!$user) {
@@ -94,7 +96,7 @@ if (!$user) {
                         <!-- TODO: 自己紹介を表示: nl2br() htmlspecialchars() を使用 -->
                         <!-- nl2br() 改行を反映させる -->
                         <!-- htmlspecialchars() エスケープ処理を行う -->
-                        <?= nl2br($user['bio']) ?>
+                        <?= nl2br(htmlspecialchars($user['bio'])) ?>
                     </p>
                 </div>
 
