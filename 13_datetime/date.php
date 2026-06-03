@@ -27,16 +27,16 @@ $next_day_time = time() + (24 * 60 * 60);
 $next_day = date('Y/m/d', $next_day_time);
 
 // xヶ月前: strtotime() : -3 month
-$prev_day_time = 0;
-$prev_day = '';
+$prev_day_time = strtotime('-3 month');
+$prev_day = date('Y/m/d', $prev_day_time);
 
 // x時間後: strtotime() : +3 hour
-$next_hour_time = 0;
-$next_hour = '';
+$next_hour_time = strtotime('+3 hour');
+$next_hour = date('Y/m/d H:i:s', $next_hour_time);
 
 // 次の曜日: strtotime() : +1 sunday
-$next_week_time = 0;
-$next_week = '';
+$next_week_time = strtotime('+1 sunday');
+$next_week = date('Y/m/d H:i:s', $next_week_time);
 ?>
 
 <!DOCTYPE html>
