@@ -6,13 +6,16 @@
  */
 
 // TODO: GETデータの取得
-$queries = [];
+$queries = $_GET;
+// デバッグ: GETデータを表示して強制終了
+// var_dump($queries);
+// exit;
 
 // TODO: keyword チェック
-$keyword = $queries[''] ?? '';
+$keyword = $queries['keyword'] ?? '';
 // TODO: category チェック
-$category = $queries[''] ?? '';
-// TODO: SERVERグローバル変数からリクエストURIを取得
+$category = $queries['category'] ?? '';
+// TODO: SERVERグローバル変数からリクエストURLを取得
 $uri = $_SERVER['REQUEST_URI'] ?? '';
 ?>
 
@@ -73,7 +76,7 @@ $uri = $_SERVER['REQUEST_URI'] ?? '';
                         <div class="space-y-2">
                             <label for="keyword" class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">キーワード</label>
                             <!-- TODO: name=keyword -->
-                            <input type="text" name="" id="keyword"
+                            <input type="text" name="keyword" id="keyword"
                                 class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-50 transition-all text-sm outline-none font-bold"
                                 placeholder="例：PHP 8.x"
                                 value="<?= htmlspecialchars($keyword) ?>">
@@ -81,7 +84,7 @@ $uri = $_SERVER['REQUEST_URI'] ?? '';
                         <div class="space-y-2">
                             <label for="category" class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">カテゴリ</label>
                             <!-- TODO: name=category -->
-                            <input type="text" name="" id="category"
+                            <input type="text" name="category" id="category"
                                 class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 focus:border-sky-500 focus:ring-4 focus:ring-sky-50 transition-all text-sm outline-none font-bold"
                                 placeholder="例：プログラミング"
                                 value="<?= htmlspecialchars($category) ?>">
