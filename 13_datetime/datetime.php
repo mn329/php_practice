@@ -14,18 +14,22 @@ $date_string = $date->format('Y-m-d H:i:s');
 
 // 比較用データ
 $date1 = new DateTime();
-$date_string1 = '';
+$date1->setDate(2022, 3, 10)->setTime(10, 30, 45);
+$date_string1 = $date1->format('Y-m-d H:i:s');
 
 $date2 = new DateTime();
+$date2->setDate(2022, 3, 10)->setTime(10, 30, 45);
 // TODO: 日付の操作: modify() : +1 day
+$date2->modify('+1 day');
 
-$date_string2 = '';
+
+$date_string2 = $date2->format('Y-m-d H:i:s');
 
 // 比較実行
-$is_match = false;
+$is_match = ($date1 < $date2);
 
 // 比較結果のテキスト
-$comparison_text = '';
+$comparison_text = $is_match ? "{$date_string1} は {$date_string2} より前の日時です（True）" : "{$date_string1} は {$date_string2} 以降の日時です（False）";
 ?>
 
 <!DOCTYPE html>
