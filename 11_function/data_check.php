@@ -42,8 +42,8 @@ $results['substr'] = [
 // 4. 置換・検索
 // TODO: str_replace, mb_strpos関数を使用して、文字列の置換と検索を行う
 $results['replace'] = [
-    // 'replace' => str_replace('PHP', '🐘', $trimmedString),
-    // 'pos' => mb_strpos($trimmedString, 'PHP'), // 文字の位置を検索
+    'replace' => str_replace('PHP', '🐘', $trimmedString),
+    'pos' => mb_strpos($trimmedString, 'PHP'), // 文字の位置を検索
 ];
 
 // 5. 数値操作
