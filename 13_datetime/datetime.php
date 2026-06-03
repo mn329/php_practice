@@ -6,8 +6,11 @@ date_default_timezone_set('Asia/Tokyo');
 $date = new DateTime();
 // TODO: 日付と時刻の設定: setDate(), setTime()
 
+$date->setDate(2022, 3, 10)->setTime(10, 30, 45);
+
+
 // TODO 日付と時刻のフォーマット: format() : Y-m-d H:i:s
-$date_string = '';
+$date_string = $date->format('Y-m-d H:i:s');
 
 // 比較用データ
 $date1 = new DateTime();
