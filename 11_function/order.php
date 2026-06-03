@@ -23,9 +23,9 @@ function findUser(int $id)
 {
     require_once "data/users.php";
     // TODO: array_column で id の配列を作成
-    $ids = [];
+    $ids = array_column($users, "id");
     // TODO:    array_search でインデックスを検索
-    $index = 0;
+    $index = array_search($id, $ids);
     // インデックスが見つかった場合はユーザー情報を返し、見つからない場合は null を返す
     return ($index !== false) ? $users[$index] : null;
 }
