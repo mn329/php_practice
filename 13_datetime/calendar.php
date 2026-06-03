@@ -16,6 +16,21 @@ $days = range(1, $end_day);
 
 // カレンダー配列の初期化 (最大6行)
 $calendar = array_fill(0, 6, array_fill(0, 7, null));
+$row = 0;
+
+// 1日から月末までループ
+foreach ($days as $day) {
+    $date = new DateTime();
+    $date->setDate($year, $month, $day);
+    $week_number = (int)$date->format('w'); // 0 (日) から 6 (土)
+
+    $calendar[$row][$week_number] = $date;
+
+    // 土曜日（6）なら次の行へ
+    if ($week_number === 6) {
+        $row++;
+    }
+}
 
 function isToday($date)
 {
