@@ -14,17 +14,17 @@ $day = 7;
 $next_time = time() + (24 * 60 * 60) * $day;
 
 // TODO: 現在の年: Y
-$year = '';
+$year = date('Y');
 // TODO: 現在の月: m
-$month = '';
+$month = date('m');
 // TODO: 現在の月の日数: t
-$days = '';
+$days = date('t');
 // TODO: 現在の日付と時刻: Y/m/d H:i:s
-$today_string = '';
+$today_string = date('Y/m/d H:i:s');
 
 // x日後: strtotime() : +1 day
-$next_day_time = 0;
-$next_day = '';
+$next_day_time = time() + (24 * 60 * 60);
+$next_day = date('Y/m/d', $next_day_time);
 
 // xヶ月前: strtotime() : -3 month
 $prev_day_time = 0;
