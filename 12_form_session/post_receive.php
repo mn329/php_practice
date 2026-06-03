@@ -6,6 +6,8 @@
  */
 
 session_start();
+// セッションを再生成
+session_regenerate_id(true);
 
 // テストユーザー情報 (本来はデータベース等で管理します)
 const TEST_USER = [

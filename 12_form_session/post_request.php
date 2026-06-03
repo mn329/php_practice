@@ -6,7 +6,8 @@
  */
 
 session_start();
-
+// セッションを再生成
+session_regenerate_id(true);
 // セッションから各種データを取得
 // TODO: previous_post
 $posts = $_SESSION['previous_post'] ?? [];
