@@ -6,6 +6,15 @@ $today = new DateTime();
 $year = $today->format('Y');
 $month = $today->format('n');
 
+// クエリパラメータがあれば取得
+if (isset($_GET['y'])) $year = (int)$_GET['y'];
+if (isset($_GET['m'])) $month = (int)$_GET['m'];
+
+$today->setDate($year, $month, 1);
+$end_day = (int)$today->format('t');
+$days = range(1, $end_day);
+
+// カレンダー配列の初期化 (最大6行)
 $calendar = array_fill(0, 6, array_fill(0, 7, null));
 
 function isToday($date)
