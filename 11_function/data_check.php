@@ -48,15 +48,20 @@ $results['replace'] = [
 
 // 5. 数値操作
 $isNumeric = $results['check']['is_numeric'];
-$number = $isNumeric ? $testValue : 0;
+$number = $isNumeric ? $testValue : 100000.99;
 
 // TODO: number_format, ceil, floor, round関数を使用して、数値のフォーマットと丸め処理
 $results['number'] = [
+    // 元の数値
     'raw' => $number,
-    'format' => "",
-    'ceil' => 0,
-    'floor' => 0,
-    'round' => 0,
+    // フォーマット（3桁ごとにカンマ区切り）
+    'format' => number_format($number),
+    // 小数点以下を切り上げ
+    'ceil' => ceil($number),
+    // 小数点以下を切り捨て
+    'floor' => floor($number),
+    // 四捨五入
+    'round' => round($number),
 ];
 
 ?>
@@ -169,6 +174,10 @@ $results['number'] = [
                     変換・抽出
                 </h2>
                 <div class="space-y-4">
+                    <div>
+                        <span class="text-sm font-black text-slate-400 uppercase block mb-2">substr(0, 5) - 先頭5バイト</span>
+                        <code class="text-sm font-bold bg-slate-100 px-3 py-1 rounded-lg text-slate-700"><?= htmlspecialchars($results['substr']['substr_5']) ?></code>
+                    </div>
                     <div>
                         <span class="text-sm font-black text-slate-400 uppercase block mb-2">mb_substr(0, 2) - 2文字抽出</span>
                         <code class="text-sm font-bold bg-slate-100 px-3 py-1 rounded-lg text-slate-700"><?= htmlspecialchars($results['substr']['mb_substr_2']) ?></code>
