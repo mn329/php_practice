@@ -3,14 +3,15 @@
 $title = 'PHP基礎：日付操作 date() 関数';
 
 // TODO: タイムゾーンの設定
+date_default_timezone_set("Asia/Tokyo");
 
 // TODO: 現在のタイムスタンプ
-$now_time = 0;
+$now_time = time();
 
 // x日後のタイムスタンプ
 $day = 7;
 // TODO: 現在のタイムスタンプ + (24時間 * 60分 * 60秒) * x日
-$next_time = 0;
+$next_time = time() + (24 * 60 * 60) * $day;
 
 // TODO: 現在の年: Y
 $year = '';
