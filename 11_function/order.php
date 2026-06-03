@@ -66,7 +66,7 @@ function calculatePoint(int $amount, float $rate = POINT_RATE): int
  * メッセージの作成（無名関数 / クロージャ）
  */
 $formatGreeting = function (string $name) {
-    // return "{$name}さん、この商品を購入しますか？";
+    return "{$name}さん、この商品を購入しますか？";
 };
 
 /**
@@ -84,11 +84,11 @@ $exclTaxPrice = 0;
 $earnedPoints = 0;
 if ($user && $product) {
     // TODO: calculateSubtotal関数を使用して、合計金額を計算
-    $subtotal = 0;
+    $subtotal = calculateSubtotal($product['price'], $quantity);
     // TODO: $getExclTaxPrice を使用して、税込価格から税抜価格を計算
-    $exclTaxPrice = 0;
+    $exclTaxPrice = $getExclTaxPrice($product['price']);
     // TODO: calculatePoint関数を使用して、獲得予定ポイントを計算
-    $earnedPoints = 0;
+    $earnedPoints = calculatePoint($subtotal);
 }
 ?>
 
