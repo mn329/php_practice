@@ -38,8 +38,11 @@ function findProduct(int $id)
     require_once "data/products.php";
     $ids = [];
     $index = false;
-    // $ids = array_column($products, "id");
-    // $index = array_search($id, $ids);
+    // 商品一覧から id の配列を作成
+    $ids = array_column($products, "id");
+    // id の配列から、指定された $id のインデックスを検索
+    $index = array_search($id, $ids);
+    // index から商品を取得
     return ($index !== false) ? $products[$index] : null;
 }
 
