@@ -9,12 +9,11 @@
 session_start();
 
 // セッション変数の破棄
-// TODO: セッション変数の破棄: unset() authUser, message, status
-// ログインしている時はセッション変数を破棄する
 if (isset($_SESSION['authUser'])) {
     unset($_SESSION['authUser']);
     unset($_SESSION['message']);
     unset($_SESSION['status']);
+    unset($_SESSION['previous_post']);
 }
 
 // ログインページへリダイレクト
