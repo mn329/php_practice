@@ -52,7 +52,7 @@ if (isset($_SESSION[APP_KEY]['error'])) {
                                bg-white border border-sky-200 rounded-xl
                                focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-transparent
                                peer transition"
-                        value="<?= $form['account_name'] ?? '' ?>"
+                        value="<?= h($form['account_name'] ?? '') ?>"
                         placeholder=" " required>
                     <label for="account_name"
                         class="absolute left-4 top-4 text-sm text-gray-400
