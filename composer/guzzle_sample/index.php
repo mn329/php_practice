@@ -1,6 +1,6 @@
 <?php
 // Composer のオートローダーを読み込む
-require_once dirname(__DIR__, 2) . '/bootstrap.php';
+require_once dirname(__DIR__) . '/bootstrap.php';
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
