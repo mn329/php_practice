@@ -31,6 +31,12 @@ $qrCode = new QrCode(
 $writer = new PngWriter();
 $result = $writer->write($qrCode);
 
-// 画像出力（Content-Type とバイナリを正しく返す）
+// ファイル保存（ドメイン名で保存。ホストが取れない場合はフォールバック）
+$domain = parse_url($text, PHP_URL_HOST);
+$filename = ($domain ?: 'qrcode') . '.png';
+$result->saveToFile('../images/' . $filename);
+
+// 画像出力（ブラウザ表示・ダウンロード用）
 header('Content-Type: ' . $result->getMimeType());
 echo $result->getString();
+
