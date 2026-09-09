@@ -20,17 +20,17 @@ if (!$text) {
 }
 
 // TODO: QRコード生成
-// $qrCode = new QrCode(
-//     data: $text,
-//     encoding: new Encoding('UTF-8'),
-//     size: $size,
-//     margin: $margin,
-// );
+$qrCode = new QrCode(
+    data: $text,
+    encoding: new Encoding('UTF-8'),
+    size: $size,
+    margin: $margin,
+);
 
 // TODO: PNGとして出力
-// $writer = new PngWriter();
-// $result = $writer->write($qrCode);
+$writer = new PngWriter();
+$result = $writer->write($qrCode);
 
-// TODO: 画像出力
-header('Content-Type: ');
-echo "ここで画像を出力処理します。";
+// 画像出力（Content-Type とバイナリを正しく返す）
+header('Content-Type: ' . $result->getMimeType());
+echo $result->getString();
