@@ -2,8 +2,8 @@
 
 ## 提出者
 
-- 学籍番号:
-- 氏名:
+- 学籍番号:61357
+- 氏名:石田湊
 - 調査日: 2026/06/24
 
 ## 調査した項目一覧
@@ -22,9 +22,11 @@
 12. No.12: ログアウト処理
 13. No.13: 共通ナビゲーションの認証状態による出し分け
 14. No.14: ログイン失敗時の入力値復元
-15. No.16: ユーザー登録の CSRF トークン
-16. No.17: ユーザー登録のパスワードハッシュ化
-17. No.18: アクティビティグラフ API の URL
+15. No.15: Gemini API キーと AI 分析
+16. No.16: ユーザー登録の CSRF トークン
+17. No.17: ユーザー登録のパスワードハッシュ化
+18. No.18: アクティビティグラフ API の URL
+19. 自動テスト（`tests/run_action_tests.php`）による動作確認
 
 ---
 
@@ -174,7 +176,7 @@ INSERT 文のテーブル名がプレースホルダ `xxxx` のままで、存�
 テーブル名を `health_records` に修正した。
 
 ```php
-$sql = "INSERT INTO health_records (user_id, weight, heart_rate, systolic, diastolic, recorded_at) 
+$sql = "INSERT INTO health_records (user_id, weight, heart_rate, systolic, diastolic, recorded_at)
         VALUES (:user_id, :weight, :heart_rate, :systolic, :diastolic, :recorded_at)";
 ```
 
@@ -289,7 +291,7 @@ $sql = "SELECT recorded_at, weight, heart_rate, systolic, diastolic
 #### 修正内容
 
 ```html
-<form action="activity/insert.php" method="post" class="space-y-6">
+<form action="activity/insert.php" method="post" class="space-y-6"></form>
 ```
 
 #### 動作確認
@@ -442,6 +444,45 @@ $old = $_SESSION['login_old'] ?? ['email' => ''];
 
 ---
 
+## No.15 Gemini API キーと AI 分析
+
+#### 症状
+
+- 健康管理画面の「AI分析（最新の30件を分析）」を実行しても結果が表示されない
+- `env.php` の `GEMINI_API_KEY` が空のままだった
+
+#### 確認したファイル
+
+- `env.php`
+- `env.sample.php`
+- `api/health/ai/index.php`
+- `services/GeminiService.php`
+
+#### 原因
+
+- Google AI Studio で発行した API キーが `env.php` に設定されていなかった
+- 無料利用を想定し、モデルは `gemini-2.5-flash-lite` を使用する方針とした
+- 検証の過程で `gemini-2.5-flash` に変更したが、API 側の一時的な混雑（`high demand` エラー）が発生したため、無料枠向けの `gemini-2.5-flash-lite` に戻した
+
+#### 修正内容
+
+`env.php` に API キーを設定し、モデルを `gemini-2.5-flash-lite` に指定した。
+
+```php
+const GEMINI_API_KEY = '（APIキーはレポートに記載しない）';
+const GEMINI_MODEL = 'gemini-2.5-flash-lite';
+```
+
+※ API キーの値自体はセキュリティのため本レポートには記載しない。
+
+#### 動作確認
+
+- ログイン後、健康管理画面の「AI分析」ボタンを押し、分析結果（advice）が表示されることを確認
+- `tests/run_action_tests.php` の No.15 / No.15b が PASS となることを確認
+- 診断結果が `ai_diagnosis_logs` テーブルに保存されることを確認
+
+---
+
 ## No.16 ユーザー登録の CSRF トークン
 
 #### 症状
@@ -516,7 +557,7 @@ $posts['password_hash'] = password_hash($posts['password'], PASSWORD_DEFAULT);
 #### 修正内容
 
 ```javascript
-const url = 'api/activity/get/';
+const url = "api/activity/get/";
 ```
 
 #### 動作確認
@@ -525,18 +566,57 @@ const url = 'api/activity/get/';
 
 ---
 
+## 自動テストによる動作確認
+
+#### 目的
+
+`docs/未完成箇所レポート.md` の各項目について、ブラウザ操作に加えて再現性のある確認を行うため、自動テストスクリプトを作成・実行した。
+
+#### 確認したファイル
+
+- `tests/run_action_tests.php`
+
+#### 内容
+
+- No.1〜No.18 の各項目を HTTP リクエストおよび DB 操作で検証
+- ログインユーザー（`test@example.com` / `password123`）を使用
+- No.15 は Gemini API を実際に呼び出して `advice` の取得と DB 保存を確認
+- Gemini の負荷が高い場合に備え、`--skip-ai` オプションで No.15 をスキップ可能
+
+#### 実行コマンド
+
+```bash
+/Applications/MAMP/bin/php/php8.3.9/bin/php tests/run_action_tests.php
+```
+
+#### 動作確認
+
+```
+=== 結果: PASS 24 / FAIL 0 / 全24 ===
+```
+
+全項目（No.1〜No.18 および関連サブテスト）が PASS となることを確認した。
+
+---
+
 ## AI 利用について
 
 - AI を利用したか: はい
-- 利用した内容: 未完成箇所の調査・原因特定・修正コードの作成・レポートの構成整理
-- 自分で確認した内容: 各画面での表示確認、DB 接続、ログイン・登録・CRUD 操作、CSV ダウンロード、グラフ表示
+- 利用した内容:
+  - 未完成箇所の調査
+  - 原因特定
+  - レポートの構成整理
+  - 自動テストスクリプトの作成
+- 自分で実行した内容:
+  - `env.php` の DB 接続情報および Gemini API キー・モデル（`gemini-2.5-flash-lite`）の設定
+  - 各画面での表示確認（ログイン・登録・CRUD・CSV・グラフ・AI 分析）
+  - `tests/run_action_tests.php` による自動テストの実行（全24項目 PASS）
+  - レポートの内容作成
 
 ## 現状の問題点
 
-- `env.php` の Gemini API キーは未設定のため、健康管理の AI 分析機能は API キー設定後に動作確認が必要
+- Gemini API は `gemini-2.5-flash-lite` で動作確認済み。ただし API 側の混雑時は一時的に `high demand` エラーとなり、時間をおいて再実行が必要な場合がある
+  `gemini-2.5-flash` に変更も検討する必要あり。
 - `register/store.php` でパスワードも `App::sanitize()` の対象になっており、特殊文字を含むパスワードで問題が起きる可能性がある
 - `lib/App.php` の `session_regenerate_id(true)` が毎リクエストで実行されており、セッション管理の挙動に注意が必要
-
-## まとめ
-
-`docs/未完成箇所レポート.md` に記載された 17 項目のうち、DB 接続を除く主要な UI・CRUD・認証・API 関連の不具合を調査・修正した。トップページ表示、各記録機能の CRUD、ナビゲーションの認証出し分け、ログイン・登録フロー、アクティビティグラフまで一通り動作することを確認した。Gemini API キーの設定のみ、各自の環境で別途対応が必要である。
+- `databases/insert_data.sql` のコメントではテストユーザーのパスワードが `testpassword` だが、`js/test_user.js` では `password123` を入力するため、表記の統一が必要
