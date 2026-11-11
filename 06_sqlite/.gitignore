@@ -1,1 +1,12 @@
-*.sqlite
+# SQLite のデータベース本体（db.php が自動で作る）
+data/*.sqlite
+# SQLite が書き込み中に作る一時ファイル
+data/*.sqlite-journal
+data/*.sqlite-wal
+data/*.sqlite-shm
+
+# アップロードされた画像（フォルダを残すため .gitkeep だけは管理する）
+public/uploads/*
+!public/uploads/.gitkeep
+
+.DS_Store
