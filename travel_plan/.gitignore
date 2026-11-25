@@ -1,0 +1,5 @@
+vendor/
+data/*.sqlite
+data/*.sqlite-*
+public/uploads/*
+!public/uploads/.gitkeep
